@@ -1,0 +1,16 @@
+Library
+Temp
+obj
+HybridCLRData
+.vscode
+Logs
+Bundles
+Assets/StreamingAssets
+YooHotFile
+HybridCLRSettings.asset
+TstAsmbly.csproj
+Assets/HybridCLRGenerate
+Assets/AllToHot/HotCode
+SNRToy.csproj
+SNRToy.Editor.csproj
+SNRToy.sln
