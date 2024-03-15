@@ -30,7 +30,7 @@ namespace SNRHotUpdate
         }
 
 
-        private enum ESteps
+        public enum ESteps
         {
             None,
             Update,
@@ -41,6 +41,13 @@ namespace SNRHotUpdate
         private readonly EventGroup _eventGroup = new EventGroup();
         private readonly StateMachine _machine;
         private ESteps _steps = ESteps.None;
+        public ESteps CurStep
+        {
+            get
+            {
+                return _steps;
+            }
+        }
 
         public StateMachine GetMachine()
         {
