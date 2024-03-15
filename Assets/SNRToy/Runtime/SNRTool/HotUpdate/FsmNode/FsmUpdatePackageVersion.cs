@@ -18,7 +18,7 @@ public class FsmUpdatePackageVersion : IStateNode
     }
     void IStateNode.OnEnter()
     {
-        PatchEventDefine.PatchStatesChange.SendEventMessage("获取最新的资源版本 !");
+        PatchEventDefine.PatchStatesChange.SendEventMessage("获取最新的资源版本 !", _machine);
         var coBehaviour = (MonoBehaviour)_machine.GetBlackboardValue(KWord.CoroutineBehaviour);
         coBehaviour.StartCoroutine(UpdatePackageVersion());
     }
@@ -43,7 +43,7 @@ public class FsmUpdatePackageVersion : IStateNode
             //heywait 比如当version.json文件里的版本在cdn里找不到时 会到这
             //加个统一开关 可以线上调试log类似于显示logtoScreen
             Debug.LogWarning(operation.Error);
-            PatchEventDefine.PackageVersionUpdateFailed.SendEventMessage();
+            PatchEventDefine.PackageVersionUpdateFailed.SendEventMessage(_machine);
         }
         else
         {

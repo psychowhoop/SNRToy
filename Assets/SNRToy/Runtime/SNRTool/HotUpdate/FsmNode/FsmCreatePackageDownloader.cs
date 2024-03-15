@@ -10,6 +10,9 @@ using SNRKWordDefine;
 /// </summary>
 public class FsmCreatePackageDownloader : IStateNode
 {
+    public int mFileCount = 0;
+    public long mFileBytes = 0;
+
     private StateMachine _machine;
 
     void IStateNode.OnCreate(StateMachine machine)
@@ -18,7 +21,7 @@ public class FsmCreatePackageDownloader : IStateNode
     }
     void IStateNode.OnEnter()
     {
-        PatchEventDefine.PatchStatesChange.SendEventMessage("创建补丁下载器！");
+        PatchEventDefine.PatchStatesChange.SendEventMessage("创建补丁下载器！", _machine);
         var coBehaviour = (MonoBehaviour)_machine.GetBlackboardValue(KWord.CoroutineBehaviour);
         coBehaviour.StartCoroutine(CreateDownloader());
     }
@@ -51,10 +54,10 @@ public class FsmCreatePackageDownloader : IStateNode
             // 发现新更新文件后，挂起流程系统
             // 注意：开发者需要在下载前检测磁盘空间不足
             //需要下载的文件总数和总大小
-            int totalDownloadCount = downloader.TotalDownloadCount;
-            long totalDownloadBytes = downloader.TotalDownloadBytes;
+            mFileCount = downloader.TotalDownloadCount;
+            mFileBytes = downloader.TotalDownloadBytes;
 
-            PatchEventDefine.FoundUpdateFiles.SendEventMessage(totalDownloadCount, totalDownloadBytes);
+            PatchEventDefine.FoundUpdateFiles.SendEventMessage(mFileCount, mFileBytes, _machine);
         }
     }
 

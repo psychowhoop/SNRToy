@@ -4,6 +4,9 @@ namespace SNRKWordDefine
     {
 
 
+        public const string fileCount = "fileCount";
+        public const string fileBytes = "fileBytes";
+
         public const string Android = "Android";
         public const string iOS = "iOS";
         public const string WebGL = "WebGL";

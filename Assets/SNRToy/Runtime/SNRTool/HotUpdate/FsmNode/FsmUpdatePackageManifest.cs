@@ -18,7 +18,7 @@ public class FsmUpdatePackageManifest : IStateNode
     }
     void IStateNode.OnEnter()
     {
-        PatchEventDefine.PatchStatesChange.SendEventMessage("更新资源清单！");
+        PatchEventDefine.PatchStatesChange.SendEventMessage("更新资源清单！", _machine);
         var coBehaviour = (MonoBehaviour)_machine.GetBlackboardValue(KWord.CoroutineBehaviour);
         coBehaviour.StartCoroutine(UpdateManifest());
     }
@@ -43,7 +43,7 @@ public class FsmUpdatePackageManifest : IStateNode
         if (operation.Status != EOperationStatus.Succeed)
         {
             Debug.LogWarning(operation.Error);
-            PatchEventDefine.PatchManifestUpdateFailed.SendEventMessage();
+            PatchEventDefine.PatchManifestUpdateFailed.SendEventMessage(_machine);
             yield break;
         }
         else

@@ -10,6 +10,7 @@ using SNRLogHelper;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.IO;
 
 
 
@@ -17,6 +18,18 @@ namespace SNRHotUpdate
 {
     public class PatchOperation : GameAsyncOperation
     {
+
+        public class PatchModel
+        {
+            public string pkgName;
+            public EDefaultBuildPipeline buildPipeline;
+            public EPlayMode playMode;
+            public string serAddress;
+            public string cdnProjFolder;
+            public MonoBehaviour coroutineBhv;
+        }
+
+
         private enum ESteps
         {
             None,
@@ -29,7 +42,17 @@ namespace SNRHotUpdate
         private readonly StateMachine _machine;
         private ESteps _steps = ESteps.None;
 
-        public PatchOperation((
+        public StateMachine GetMachine()
+        {
+            return _machine;
+        }
+
+        public PatchOperation(PatchModel pModel) : this((pModel.pkgName, pModel.buildPipeline.ToString(), pModel.playMode, pModel.serAddress, pModel.cdnProjFolder, pModel.coroutineBhv))
+        {
+
+        }
+
+        private PatchOperation((
             string pkgName,
             string buildPipeline,
             EPlayMode playMode,
@@ -129,6 +152,18 @@ namespace SNRHotUpdate
         /// </summary>
         private void OnHandleEventMessage(IEventMessage message)
         {
+
+            if (message.pasData == null)
+            {
+                throw new System.NotImplementedException($"{message.GetType()} not pass the machine");
+            }
+
+            if (message.pasData != _machine)
+            {
+                SLog.Log("not my machine!");
+                return;
+            }
+
             if (message is UserEventDefine.UserTryInitialize)
             {
                 _machine.ChangeState<FsmInitializePackage>();

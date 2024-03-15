@@ -6,6 +6,7 @@ namespace DefEventDefine
 {
     public class EvtYooPackageInitComplete : IEventMessage
     {
+        public System.Object pasData { get; set; }
         public string packageName = "";
         public static void Send(string packageName = "")
         {
@@ -17,6 +18,7 @@ namespace DefEventDefine
 
     public class EvtChangeToHallScene : IEventMessage
     {
+        public System.Object pasData { get; set; }
         public static void Send()
         {
             var msg = new EvtChangeToHallScene();
@@ -27,7 +29,8 @@ namespace DefEventDefine
 
     public class EvtMsg : IEventMessage
     {
-        public object pasData;
+        public System.Object pasData { get; set; }
+
     }
 
     // public class EvtSetGManagerBehavior : EvtMsg

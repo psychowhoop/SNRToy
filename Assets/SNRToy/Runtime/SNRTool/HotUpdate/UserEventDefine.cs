@@ -1,4 +1,5 @@
-﻿using UniFramework.Event;
+﻿using System;
+using UniFramework.Event;
 
 public class UserEventDefine
 {
@@ -7,9 +8,11 @@ public class UserEventDefine
 	/// </summary>
 	public class UserTryInitialize : IEventMessage
 	{
-		public static void SendEventMessage()
+		public Object pasData { get; set; }
+		public static void SendEventMessage(Object machine)
 		{
 			var msg = new UserTryInitialize();
+			msg.pasData = machine;
 			UniEvent.SendMessage(msg);
 		}
 	}
@@ -19,9 +22,11 @@ public class UserEventDefine
 	/// </summary>
 	public class UserBeginDownloadWebFiles : IEventMessage
 	{
-		public static void SendEventMessage()
+		public Object pasData { get; set; }
+		public static void SendEventMessage(Object machine)
 		{
 			var msg = new UserBeginDownloadWebFiles();
+			msg.pasData = machine;
 			UniEvent.SendMessage(msg);
 		}
 	}
@@ -31,9 +36,11 @@ public class UserEventDefine
 	/// </summary>
 	public class UserTryUpdatePackageVersion : IEventMessage
 	{
-		public static void SendEventMessage()
+		public Object pasData { get; set; }
+		public static void SendEventMessage(Object machine)
 		{
 			var msg = new UserTryUpdatePackageVersion();
+			msg.pasData = machine;
 			UniEvent.SendMessage(msg);
 		}
 	}
@@ -43,9 +50,11 @@ public class UserEventDefine
 	/// </summary>
 	public class UserTryUpdatePatchManifest : IEventMessage
 	{
-		public static void SendEventMessage()
+		public Object pasData { get; set; }
+		public static void SendEventMessage(Object machine)
 		{
 			var msg = new UserTryUpdatePatchManifest();
+			msg.pasData = machine;
 			UniEvent.SendMessage(msg);
 		}
 	}
@@ -55,9 +64,11 @@ public class UserEventDefine
 	/// </summary>
 	public class UserTryDownloadWebFiles : IEventMessage
 	{
-		public static void SendEventMessage()
+		public Object pasData { get; set; }
+		public static void SendEventMessage(Object machine)
 		{
 			var msg = new UserTryDownloadWebFiles();
+			msg.pasData = machine;
 			UniEvent.SendMessage(msg);
 		}
 	}

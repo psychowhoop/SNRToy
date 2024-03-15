@@ -1,4 +1,5 @@
-﻿using UniFramework.Event;
+﻿using System;
+using UniFramework.Event;
 
 public class PatchEventDefine
 {
@@ -7,9 +8,12 @@ public class PatchEventDefine
     /// </summary>
     public class InitializeFailed : IEventMessage
     {
-        public static void SendEventMessage()
+        public Object pasData { get; set; }
+
+        public static void SendEventMessage(Object machine)
         {
             var msg = new InitializeFailed();
+            msg.pasData = machine;
             UniEvent.SendMessage(msg);
         }
     }
@@ -20,11 +24,12 @@ public class PatchEventDefine
     public class PatchStatesChange : IEventMessage
     {
         public string Tips;
-
-        public static void SendEventMessage(string tips)
+        public Object pasData { get; set; }
+        public static void SendEventMessage(string tips, Object machine)
         {
             var msg = new PatchStatesChange();
             msg.Tips = tips;
+            msg.pasData = machine;
             UniEvent.SendMessage(msg);
         }
     }
@@ -36,12 +41,14 @@ public class PatchEventDefine
     {
         public int TotalCount;
         public long TotalSizeBytes;
+        public Object pasData { get; set; }
 
-        public static void SendEventMessage(int totalCount, long totalSizeBytes)
+        public static void SendEventMessage(int totalCount, long totalSizeBytes, Object machine)
         {
             var msg = new FoundUpdateFiles();
             msg.TotalCount = totalCount;
             msg.TotalSizeBytes = totalSizeBytes;
+            msg.pasData = machine;
             UniEvent.SendMessage(msg);
         }
     }
@@ -49,20 +56,23 @@ public class PatchEventDefine
     /// <summary>
     /// 下载进度更新
     /// </summary>
-    public class DownloadProgressUpdate : IEventMessage
+    public class DownloadProgressUpdate : IEventMessage//heywait 涉及到多个patchList的情况
     {
         public int TotalDownloadCount;
         public int CurrentDownloadCount;
         public long TotalDownloadSizeBytes;
         public long CurrentDownloadSizeBytes;
+
+        public Object pasData { get; set; }
         //heytip
-        public static void SendEventMessage(int totalDownloadCount, int currentDownloadCount, long totalDownloadSizeBytes, long currentDownloadSizeBytes)
+        public static void SendEventMessage(int totalDownloadCount, int currentDownloadCount, long totalDownloadSizeBytes, long currentDownloadSizeBytes, Object machine)
         {
             var msg = new DownloadProgressUpdate();
             msg.TotalDownloadCount = totalDownloadCount;
             msg.CurrentDownloadCount = currentDownloadCount;
             msg.TotalDownloadSizeBytes = totalDownloadSizeBytes;
             msg.CurrentDownloadSizeBytes = currentDownloadSizeBytes;
+            msg.pasData = machine;
             UniEvent.SendMessage(msg);
         }
     }
@@ -72,9 +82,11 @@ public class PatchEventDefine
     /// </summary>
     public class PackageVersionUpdateFailed : IEventMessage
     {
-        public static void SendEventMessage()
+        public Object pasData { get; set; }
+        public static void SendEventMessage(Object machine)
         {
             var msg = new PackageVersionUpdateFailed();
+            msg.pasData = machine;
             UniEvent.SendMessage(msg);
         }
     }
@@ -84,9 +96,11 @@ public class PatchEventDefine
     /// </summary>
     public class PatchManifestUpdateFailed : IEventMessage
     {
-        public static void SendEventMessage()
+        public Object pasData { get; set; }
+        public static void SendEventMessage(Object machine)
         {
             var msg = new PatchManifestUpdateFailed();
+            msg.pasData = machine;
             UniEvent.SendMessage(msg);
         }
     }
@@ -98,12 +112,14 @@ public class PatchEventDefine
     {
         public string FileName;
         public string Error;
+        public Object pasData { get; set; }
 
-        public static void SendEventMessage(string fileName, string error)
+        public static void SendEventMessage(string fileName, string error, Object machine)
         {
             var msg = new WebFileDownloadFailed();
             msg.FileName = fileName;
             msg.Error = error;
+            msg.pasData = machine;
             UniEvent.SendMessage(msg);
         }
     }

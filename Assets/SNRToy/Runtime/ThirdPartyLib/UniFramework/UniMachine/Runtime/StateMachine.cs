@@ -1,9 +1,29 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using SNRKWordDefine;
+
 
 namespace UniFramework.Machine
 {
+	public struct SMFileData
+	{
+		public int allFileCount { get; set; }
+		public long allFileBytes { get; set; }
+
+		//already download file bytes
+		public long downFileBytes { get; set; }
+		public int downFileCount { get; set; }
+
+		public SMFileData(int count, long bytes, int downCount, long downBytes)
+		{
+			allFileCount = count;
+			allFileBytes = bytes;
+			downFileBytes = downBytes;
+			downFileCount = downCount;
+		}
+	}
+
 	public class StateMachine
 	{
 		private readonly Dictionary<string, System.Object> _blackboard = new Dictionary<string, object>(100);
@@ -31,6 +51,57 @@ namespace UniFramework.Machine
 		{
 			get { return _preNode != null ? _preNode.GetType().FullName : string.Empty; }
 		}
+
+
+		public bool IsInState<TNode>() where TNode : IStateNode
+		{
+			return this.CurrentNode.Equals(typeof(TNode).FullName);
+		}
+
+		public string PackageName
+		{
+			get
+			{
+				return (string)this.GetBlackboardValue(KWord.PackageName);
+			}
+		}
+
+
+		/// <summary>
+		/// 是否已经计算出要下载的文件数量
+		/// </summary>
+		public bool IsCalculateDownFileCountComplete()
+		{
+			if (this.IsInState<FsmUpdaterDone>())
+			{
+				return true;//需下载文件为0
+			}
+
+			if (this.IsInState<FsmCreatePackageDownloader>())
+			{
+				FsmCreatePackageDownloader node = TryGetNode("FsmCreatePackageDownloader") as FsmCreatePackageDownloader;
+				return node.mFileCount > 0;
+			}
+
+			return false;
+		}
+
+		public SMFileData GetProbalyDownloadFileSize()
+		{
+			SMFileData fileData = new SMFileData(0, 0, 0, 0);
+
+			if (this.IsInState<FsmCreatePackageDownloader>())
+			{
+				FsmCreatePackageDownloader cNode = GetCurNode<FsmCreatePackageDownloader>();
+				fileData.allFileCount = cNode.mFileCount;
+				fileData.allFileBytes = cNode.mFileBytes;
+			}
+
+			return fileData;
+		}
+
+
+
 
 
 		private StateMachine() { }
@@ -68,7 +139,7 @@ namespace UniFramework.Machine
 			_preNode = _curNode;
 
 			if (_curNode == null)
-				throw new Exception($"Not found entry node: {entryNode }");
+				throw new Exception($"Not found entry node: {entryNode}");
 
 			_curNode.OnEnter();
 		}
@@ -168,5 +239,14 @@ namespace UniFramework.Machine
 			_nodes.TryGetValue(nodeName, out IStateNode result);
 			return result;
 		}
+
+		private TNode GetCurNode<TNode>() where TNode : IStateNode
+		{
+			TNode ret = (TNode)this._curNode;
+
+			return ret;
+		}
+
+
 	}
 }

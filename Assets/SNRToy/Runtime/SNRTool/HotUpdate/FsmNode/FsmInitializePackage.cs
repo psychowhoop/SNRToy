@@ -23,7 +23,7 @@ public class FsmInitializePackage : IStateNode
     }
     void IStateNode.OnEnter()
     {
-        PatchEventDefine.PatchStatesChange.SendEventMessage("初始化资源包！");
+        PatchEventDefine.PatchStatesChange.SendEventMessage("初始化资源包！", _machine);
         var coBehaviour = (MonoBehaviour)_machine.GetBlackboardValue(KWord.CoroutineBehaviour);
         coBehaviour.StartCoroutine(InitPackage());
     }
@@ -94,7 +94,7 @@ public class FsmInitializePackage : IStateNode
         if (initializationOperation.Status != EOperationStatus.Succeed)
         {
             Debug.LogWarning($"{initializationOperation.Error}");
-            PatchEventDefine.InitializeFailed.SendEventMessage();
+            PatchEventDefine.InitializeFailed.SendEventMessage(_machine);
         }
         else
         {
