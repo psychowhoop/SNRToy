@@ -7,7 +7,7 @@ using YooAsset;
 public class HotController
 {
 
-    IEnumerator HotUpdatePatchList(List<PatchOperation> patchList, System.Action onAllPatchComplete, PatchWindow patchWnd)
+    public IEnumerator HotUpdatePatchList(List<PatchOperation> patchList, System.Action onAllPatchComplete, PatchWindow patchWnd)
     {
         if (patchWnd != null)
         {
