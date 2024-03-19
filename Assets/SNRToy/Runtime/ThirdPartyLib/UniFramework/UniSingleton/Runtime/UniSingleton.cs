@@ -12,6 +12,8 @@ namespace UniFramework.Singleton
 			public int Priority { private set; get; }
 			public ISingleton Singleton { private set; get; }
 
+			public GameObject gameObj = null;//for monobehavior singleton
+
 			public Wrapper(ISingleton module, int priority)
 			{
 				Singleton = module;
@@ -146,13 +148,28 @@ namespace UniFramework.Singleton
 				priority = --minPriority;
 			}
 
-			T module = Activator.CreateInstance<T>();
+			T module = null;
+			GameObject gObj = null;
+
+			if (typeof(T).IsSubclassOf(typeof(MonoBehaviour)) || typeof(T) == typeof(MonoBehaviour))
+			{
+				string tpName = typeof(T).Name;
+				gObj = new GameObject(tpName);
+				module = gObj.AddComponent(typeof(T)) as T;
+			}
+			else
+			{
+				module = Activator.CreateInstance<T>();
+			}
+
 			Wrapper wrapper = new Wrapper(module, priority);
+			wrapper.gameObj = gObj;//for retian object?
 			wrapper.Singleton.OnCreate(createParam);
 			_wrappers.Add(wrapper);
 			_isDirty = true;
 			return module;
 		}
+
 
 		/// <summary>
 		/// 销毁单例
