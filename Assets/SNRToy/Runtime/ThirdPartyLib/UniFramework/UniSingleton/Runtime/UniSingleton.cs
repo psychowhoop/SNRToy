@@ -156,6 +156,8 @@ namespace UniFramework.Singleton
 				string tpName = typeof(T).Name;
 				gObj = new GameObject(tpName);
 				module = gObj.AddComponent(typeof(T)) as T;
+				GameObject.Instantiate(gObj);
+				GameObject.DontDestroyOnLoad(gObj);
 			}
 			else
 			{
