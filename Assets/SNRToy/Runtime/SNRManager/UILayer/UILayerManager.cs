@@ -75,7 +75,16 @@ namespace UILayerManager
 
         }
 
+        void Start()
+        {
+            SLog.Log("start now");
 
+        }
+
+        void Awake()
+        {
+            SLog.Log("awake now");
+        }
 
         #region ISingleton
         public void OnCreate(System.Object createParam)
