@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using SNRKWordDefine;
-using UniFramework.Singleton;
 using UnityEngine;
 
 namespace SNRUserDataManager
 {
-    public class UserDataManager : MonoBehaviour, UniFramework.Singleton.ISingleton
+    public class UserDataManager : MonoBehaviour
     {
 
         public bool IsNewUser
@@ -29,30 +26,11 @@ namespace SNRUserDataManager
             }
         }
 
-        public static UserDataManager Instance
-        {
-            get
-            {
-                if (!UniSingleton.Contains<UserDataManager>())
-                {
-                    UniSingleton.CreateSingleton<UserDataManager>();
-                }
-
-                return UniSingleton.GetSingleton<UserDataManager>();
-            }
-        }
-
-
-
-
         void UpdateBootTimes()
         {
             int curBootTimes = this.BootTimes + 1;
             PlayerPrefs.SetInt(KWord.AppBootTimes, curBootTimes);
         }
-
-
-
 
 
         // Start is called before the first frame update
@@ -67,25 +45,35 @@ namespace SNRUserDataManager
 
         }
 
-        #region ISingleton
-        public void OnCreate(System.Object createParam)
+        void Awake()
         {
             UpdateBootTimes();
-
         }
 
-        public void OnUpdate()
+        #region Singleton
+
+        private static UserDataManager _instance;
+        private UserDataManager()
         {
 
         }
 
-
-        public void OnDestroy()
+        public static UserDataManager Instance
         {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<UserDataManager>();
+                }
 
+                return _instance;
+            }
         }
 
-        #endregion ISingleton
+
+
+        #endregion 
 
 
     }

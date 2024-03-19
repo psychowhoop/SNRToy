@@ -1,13 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using SNRLogHelper;
-using UniFramework.Singleton;
 using UnityEngine;
 
 
 namespace UILayerManager
 {
-    public class LayerManager : MonoBehaviour, ISingleton
+    public class LayerManager : MonoBehaviour
     {
 
         public GameObject mCoverLayer;//the default black background
@@ -60,20 +58,29 @@ namespace UILayerManager
         }
 
 
+        private static LayerManager _instance;
+
+        private LayerManager()
+        {
+
+        }
+
         public static LayerManager Instance
         {
             get
             {
-                if (!UniSingleton.Contains<LayerManager>())
+                if (_instance == null)
                 {
-                    UniSingleton.CreateSingleton<LayerManager>();
+                    _instance = FindObjectOfType<LayerManager>();
                 }
 
-                return UniSingleton.GetSingleton<LayerManager>();
+                return _instance;
 
             }
 
         }
+
+
 
         void Start()
         {
@@ -85,23 +92,6 @@ namespace UILayerManager
         {
             SLog.Log("awake now");
         }
-
-        #region ISingleton
-        public void OnCreate(System.Object createParam)
-        {
-
-        }
-
-        public void OnUpdate()
-        {
-
-        }
-
-        public void OnDestroy()
-        {
-
-        }
-        #endregion
 
 
     }

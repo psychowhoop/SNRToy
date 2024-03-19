@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UniFramework.Singleton;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour, ISingleton
+public class SoundManager : MonoBehaviour
 {
 
     bool _isMute = false;
@@ -39,36 +36,33 @@ public class SoundManager : MonoBehaviour, ISingleton
     }
 
 
-
+    private static SoundManager _instance;
 
     public static SoundManager Instance
     {
         get
         {
-            if (!UniSingleton.Contains<SoundManager>())
+            if (_instance == null)
             {
-                UniSingleton.CreateSingleton<SoundManager>();
+                _instance = FindObjectOfType<SoundManager>();
             }
 
-            return UniSingleton.GetSingleton<SoundManager>();
+            return _instance;
+
         }
     }
 
-
-    public void OnCreate(System.Object createParam)
+    private SoundManager()
     {
 
     }
 
 
-    public void OnUpdate()
-    {
-
-    }
 
 
-    public void OnDestroy()
-    {
 
-    }
+
+
+
+
 }

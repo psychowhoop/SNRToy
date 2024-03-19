@@ -12,6 +12,10 @@ namespace UniFramework.Singleton
 			public int Priority { private set; get; }
 			public ISingleton Singleton { private set; get; }
 
+			//添加该字段是为了可生成monobehaviour派生类的单例但问题是该类单例在editor中
+			//已挂载到节点上时就生成了一个实例,在此生成的实例和挂载时生成的不同,如果在awake
+			//中把生成的实例手动添加到这里来管理又感觉没必要了，所以这块生成monobehaviour
+			//单例暂时无用，将来有空了想到怎么改再说
 			public GameObject gameObj = null;//for monobehavior singleton
 
 			public Wrapper(ISingleton module, int priority)
