@@ -7,11 +7,19 @@ using UnityEngine;
 public class UILayerBase : MonoBehaviour
 {
 
-    public virtual void Show()
+    public virtual void Show(bool ani = false)
     {
         this.gameObject.SetActive(true);
-        this.transform.localScale = Vector3.zero;
-        transform.DOScale(1, 0.3f).SetEase(Ease.OutBounce).OnComplete(ShowAnimationComplete);
+        Vector3 v3 = ani ? Vector3.zero : Vector3.one;
+        this.transform.localScale = v3;
+        if (ani)
+        {
+            transform.DOScale(1, 0.3f).SetEase(Ease.OutBounce).OnComplete(ShowAnimationComplete);
+        }
+        else
+        {
+            ShowAnimationComplete();
+        }
     }
 
     void ShowAnimationComplete()
