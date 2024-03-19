@@ -56,7 +56,7 @@ public class PatchEventDefine
     /// <summary>
     /// 下载进度更新
     /// </summary>
-    public class DownloadProgressUpdate : IEventMessage//heywait 涉及到多个patchList的情况
+    public class DownloadProgressUpdate : IEventMessage
     {
         public int TotalDownloadCount;
         public int CurrentDownloadCount;

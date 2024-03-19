@@ -10,6 +10,7 @@ namespace SNREnumDefine
     public enum GameState
     {
         Init = 0,
+        Pause,
 
     }
 

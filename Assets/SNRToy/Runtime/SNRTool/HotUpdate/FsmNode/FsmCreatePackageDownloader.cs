@@ -50,9 +50,8 @@ public class FsmCreatePackageDownloader : IStateNode
         }
         else
         {
-            //heywait
             // 发现新更新文件后，挂起流程系统
-            // 注意：开发者需要在下载前检测磁盘空间不足
+            // 注意：开发者需要在下载前检测磁盘空间不足 //heywait
             //需要下载的文件总数和总大小
             mFileCount = downloader.TotalDownloadCount;
             mFileBytes = downloader.TotalDownloadBytes;

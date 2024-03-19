@@ -3,6 +3,11 @@ namespace SNRKWordDefine
     public static class KWord
     {
 
+        #region UserData
+        public const string NewUser = "NewUser";
+        public const string AppBootTimes = "AppBootTimes";
+
+        #endregion UserData
 
         public const string fileCount = "fileCount";
         public const string fileBytes = "fileBytes";
