@@ -25,14 +25,14 @@ public class UILayerBase : MonoBehaviour
     void ShowAnimationComplete()
     {
         GameObject coverLayer = LayerManager.Instance.mCoverLayer;
-        coverLayer.transform.parent = this.transform;
+        coverLayer.transform.SetParent(transform);
         coverLayer.transform.SetAsFirstSibling();
     }
 
     public virtual void Hide()
     {
         this.gameObject.SetActive(false);
-        LayerManager.Instance.mCoverLayer.transform.parent = LayerManager.Instance.transform;
+        LayerManager.Instance.mCoverLayer.transform.SetParent(LayerManager.Instance.transform);
     }
 
 
