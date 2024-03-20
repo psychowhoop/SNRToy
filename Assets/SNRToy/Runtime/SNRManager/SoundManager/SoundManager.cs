@@ -64,6 +64,11 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    void Awake()
+    {
+        SLog.Log("soundmanager awake now");
+    }
+
 
 
 

@@ -90,7 +90,7 @@ namespace UILayerManager
 
         void Awake()
         {
-            SLog.Log("awake now");
+            SLog.Log("uimanger awake now");
         }
 
 
