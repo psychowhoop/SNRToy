@@ -1,4 +1,5 @@
 using SNRKWordDefine;
+using SNRLogHelper;
 using UnityEngine;
 
 namespace SNRUserDataManager
@@ -32,11 +33,11 @@ namespace SNRUserDataManager
             PlayerPrefs.SetInt(KWord.AppBootTimes, curBootTimes);
         }
 
-
+        #region Monobehaviour Lifeloop
         // Start is called before the first frame update
         void Start()
         {
-
+            SLog.Log("user data start now");
         }
 
         // Update is called once per frame
@@ -49,6 +50,8 @@ namespace SNRUserDataManager
         {
             UpdateBootTimes();
         }
+
+        #endregion
 
         #region Singleton
 

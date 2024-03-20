@@ -1,3 +1,4 @@
+using SNRLogHelper;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -57,7 +58,11 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    void Start()
+    {
+        SLog.Log("soundmanager start now");
 
+    }
 
 
 

@@ -84,7 +84,7 @@ namespace UILayerManager
 
         void Start()
         {
-            SLog.Log("start now");
+            SLog.Log("uimanager start now");
 
         }
 
