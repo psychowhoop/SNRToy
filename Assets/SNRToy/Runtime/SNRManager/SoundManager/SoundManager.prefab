@@ -72,7 +72,7 @@ MonoBehaviour:
     _parentCategoryName: 
     AudioObjectPrefab: {fileID: 0}
     AudioItems:
-    - Name: BubbleHomeBg
+    - Name: BBHomeBg
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
         FadeIn: 0
         FadeOut: 0
         RandomStartPosition: 0
-    - Name: BubblePlayBg
+    - Name: BBPlayBg
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
