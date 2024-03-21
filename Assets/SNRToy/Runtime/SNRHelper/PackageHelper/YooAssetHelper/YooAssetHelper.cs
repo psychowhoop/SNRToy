@@ -19,17 +19,24 @@ namespace YooAssetHelper
 
             return version;
         }
-        public static Texture2D GetTexture2D(string texName, string packageName = KWord.PkgUnityObj)
+
+
+        public static T GetAssetSync<T>(string resourceName, string packageName = KWord.PkgUnityObj) where T : UnityEngine.Object
         {
+            if (string.IsNullOrEmpty(packageName))
+            {
+                return null;
+            }
+
             var package = YooAssets.TryGetPackage(packageName);
             if (package != null)
             {
-                var loadData = package.LoadAssetSync<Texture2D>(texName);
-                if (loadData != null && loadData.AssetObject is Texture2D)
+                var loadData = package.LoadAssetSync<T>(resourceName);
+                if (loadData != null && loadData.AssetObject is T)
                 {
-                    Texture2D imgTex = loadData.AssetObject as Texture2D;
+                    T retData = loadData.AssetObject as T;
 
-                    return imgTex;
+                    return retData;
                 }
 
             }
