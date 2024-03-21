@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using SNRLogHelper;
 using UnityEngine;
 using YooAssetHelper;
@@ -11,28 +12,29 @@ public static class CSVHelper
     /// </summary>
     /// <typeparam name="string"></typeparam>
     /// <typeparam name="T"></typeparam>
-    public static Dictionary<string, T> Read<T>(string fileName, string pkgName = null) where T : class, new()
+    public static Dictionary<string, T> Read<T>(string filePath, string pkgName = null) where T : class, new()
     {
         Dictionary<string, T> retValue = new Dictionary<string, T>();
         TextAsset txtData = null;
 
         if (!string.IsNullOrEmpty(pkgName))
         {
-            SLog.Log($"load txt data from pkg {pkgName}");
+            string fileName = Path.GetFileNameWithoutExtension(filePath);
+            SLog.Log($"load txt {fileName} data from pkg {pkgName}");
             txtData = YooHelper.GetAssetSync<TextAsset>(fileName, pkgName);
         }
 
         if (txtData == null)
         {
             SLog.Warn("not found in yoo then load txt data from resource folder");
-            txtData = Resources.Load(fileName, typeof(TextAsset)) as TextAsset;
+            txtData = Resources.Load(filePath, typeof(TextAsset)) as TextAsset;
         }
 
         //row data
         string[] rowAry = txtData?.text.Split('\n');
         if (rowAry == null || rowAry.Length <= 0)
         {
-            Debug.LogWarning($"Not find data in csv file {fileName}");
+            Debug.LogWarning($"Not find data in csv file {filePath}");
             return retValue;
         }
 
