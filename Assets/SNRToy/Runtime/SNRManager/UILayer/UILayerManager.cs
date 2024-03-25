@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace UILayerManager
 {
+    /// <summary>
+    /// not singleton
+    /// </summary>
     public class LayerManager : MonoBehaviour
     {
 
@@ -56,30 +59,6 @@ namespace UILayerManager
                 sc.Hide();
             }
         }
-
-
-        private static LayerManager _instance;
-
-        private LayerManager()
-        {
-
-        }
-
-        public static LayerManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = FindObjectOfType<LayerManager>();
-                }
-
-                return _instance;
-
-            }
-
-        }
-
 
 
         void Start()

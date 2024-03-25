@@ -3,14 +3,30 @@ namespace SNRKWordDefine
     public static class KWord
     {
 
+
+
+        #region System
+        public const string IsSoundMute = "IsSoundMute";
+        #endregion
+
+
         #region UserData
+
+
         public const string NewUser = "NewUser";
         public const string AppBootTimes = "AppBootTimes";
 
         #endregion UserData
 
+
+        #region File
+        public const string Assets = "Assets";
+        public const string Dotpng = ".png";
+        public const string Dotjpg = ".jpg";
         public const string fileCount = "fileCount";
         public const string fileBytes = "fileBytes";
+
+        #endregion
 
         public const string Android = "Android";
         public const string iOS = "iOS";

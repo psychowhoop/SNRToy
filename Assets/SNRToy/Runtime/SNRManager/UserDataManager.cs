@@ -13,6 +13,13 @@ namespace SNRUserDataManager
             {
                 return PlayerPrefs.GetInt(KWord.NewUser, 1) == 1;
             }
+
+            set
+            {
+                int storeValue = value ? 1 : 0;
+                PlayerPrefs.SetInt(KWord.NewUser, storeValue);
+            }
+
         }
 
         /// <summary>
@@ -49,6 +56,16 @@ namespace SNRUserDataManager
         void Awake()
         {
             UpdateBootTimes();
+            if (_instance == null)
+            {
+                SLog.Warn("usedata manager not init from boot?");
+                _instance = this;
+            }
+            else
+            {
+                SLog.Warn("destroy superfluous userdata manager");
+                Destroy(gameObject);
+            }
         }
 
         #endregion

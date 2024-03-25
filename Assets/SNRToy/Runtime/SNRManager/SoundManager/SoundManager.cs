@@ -1,16 +1,22 @@
+using SNRKWordDefine;
 using SNRLogHelper;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
 
-    bool _isMute = false;
     public bool IsMute
     {
-        get { return _isMute; }
+        get
+        {
+            bool mute = PlayerPrefs.GetInt(KWord.IsSoundMute, 1) == 1;
+
+            return mute;
+        }
         set
         {
-            _isMute = value;
+            int storeValue = value ? 1 : 0;
+            PlayerPrefs.SetInt(KWord.IsSoundMute, storeValue);
         }
     }
 
@@ -67,12 +73,16 @@ public class SoundManager : MonoBehaviour
     void Awake()
     {
         SLog.Log("soundmanager awake now");
+        if (_instance == null)
+        {
+            SLog.Warn("soundmanager not init from boot?");
+            _instance = this;
+        }
+        else
+        {
+            SLog.Warn("destory superfluous soundmanager obj");
+            GameObject.Destroy(gameObject);
+        }
     }
-
-
-
-
-
-
 
 }
