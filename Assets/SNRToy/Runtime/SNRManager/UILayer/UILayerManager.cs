@@ -42,7 +42,20 @@ namespace UILayerManager
             return sLayer.GetComponent<UILayerBase>();
         }
 
-        public void Show(string layerName)
+        public static void Show(string layerName)
+        {
+            LayerManager lm = FindObjectOfType<LayerManager>();
+            if (lm != null)
+            {
+                lm.ShowLayer(layerName);
+            }
+            else
+            {
+                SLog.Err("not find layerManager");
+            }
+        }
+
+        public void ShowLayer(string layerName)
         {
             UILayerBase sc = GetLayerSc(layerName);
             if (sc != null)
@@ -51,7 +64,20 @@ namespace UILayerManager
             }
         }
 
-        public void Hide(string layerName)
+        public static void Hide(string layerName)
+        {
+            LayerManager lm = FindObjectOfType<LayerManager>();
+            if (lm != null)
+            {
+                lm.HideLayer(layerName);
+            }
+            else
+            {
+                SLog.Err("not find layerManager");
+            }
+        }
+
+        public void HideLayer(string layerName)
         {
             UILayerBase sc = GetLayerSc(layerName);
             if (sc != null)
