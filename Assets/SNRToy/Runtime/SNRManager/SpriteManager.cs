@@ -19,8 +19,8 @@ public class SpriteManager : MonoBehaviour
     public bool _refreshNow = false;
     public string _sptPath = "";//base is Assets
 
-    public List<Sprite> _sptList;
-    public Dictionary<string, Sprite> _sptDic;
+    public List<Sprite> _sptList = new List<Sprite>();
+    public Dictionary<string, Sprite> _sptDic = new Dictionary<string, Sprite>();
 
 
 
