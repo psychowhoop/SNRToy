@@ -125,10 +125,10 @@ public class SpriteManagerEditor : DragFolderPath<SpriteManager>
 }
 
 // Custom editor for LayerManager class that uses the DragFolderPath extension.
-[CustomEditor(typeof(LayerManager))]
-public class LayerManagerExt : DragFolderPath<LayerManager>
-{
+// [CustomEditor(typeof(LayerManager))]
+// public class LayerManagerExt : DragFolderPath<LayerManager>
+// {
 
-}
+// }
 
 #endregion
