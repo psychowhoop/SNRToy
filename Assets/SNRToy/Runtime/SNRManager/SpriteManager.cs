@@ -9,8 +9,8 @@ using UnityEngine;
 
 /// <summary>
 /// not singleton
-/// used for update sprite from the choosed folder
-/// into prefab list
+/// used for add sprite from the choosed folder
+/// into sptlist
 /// </summary>
 [ExecuteInEditMode]
 public class SpriteManager : MonoBehaviour
@@ -84,16 +84,17 @@ public class SpriteManager : MonoBehaviour
                 _sptDic[spt.name] = spt;
             }
 
-            GameObject prefab = PrefabUtility.GetPrefabInstanceHandle(gameObject) as GameObject;
-            if (prefab != null)
-            {
-                string prefabPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(prefab);
-                PrefabUtility.SaveAsPrefabAssetAndConnect(gameObject, prefabPath, InteractionMode.AutomatedAction);
-            }
-            else
-            {
-                SLog.Err("game object is not part of a prefab instance");
-            }
+            //update content to prefab
+            // GameObject prefab = PrefabUtility.GetPrefabInstanceHandle(gameObject) as GameObject;
+            // if (prefab != null)
+            // {
+            //     string prefabPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(prefab);
+            //     PrefabUtility.SaveAsPrefabAssetAndConnect(gameObject, prefabPath, InteractionMode.AutomatedAction);
+            // }
+            // else
+            // {
+            //     SLog.Err("game object is not part of a prefab instance");
+            // }
         }
     }
 
