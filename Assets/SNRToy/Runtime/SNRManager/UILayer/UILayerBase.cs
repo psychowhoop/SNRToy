@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using SNRLogHelper;
 using UILayerManager;
 using UnityEngine;
 
 public class UILayerBase : MonoBehaviour
 {
-
     public virtual void Show(bool ani = false)
     {
         this.gameObject.SetActive(true);
@@ -24,18 +24,33 @@ public class UILayerBase : MonoBehaviour
 
     void ShowAnimationComplete()
     {
-        GameObject coverLayer = LayerManager.Instance.mCoverLayer;
-        coverLayer.transform.SetParent(transform);
-        coverLayer.transform.SetAsFirstSibling();
+        LayerManager lm = FindObjectOfType<LayerManager>();
+        if (lm != null)
+        {
+            GameObject coverLayer = lm.mCoverLayer;
+            coverLayer.transform.SetParent(transform);
+            coverLayer.transform.SetAsFirstSibling();
+        }
+        else
+        {
+            SLog.Err("layerManager not exist in current context ");
+        }
+
     }
 
     public virtual void Hide()
     {
-        this.gameObject.SetActive(false);
-        LayerManager.Instance.mCoverLayer.transform.SetParent(LayerManager.Instance.transform);
+        LayerManager lm = FindObjectOfType<LayerManager>();
+        if (lm != null)
+        {
+            this.gameObject.SetActive(false);
+            lm.mCoverLayer.transform.SetParent(lm.transform);
+        }
+        else
+        {
+            SLog.Err("layerManager not exist in current context ");
+        }
     }
-
-
 
     public virtual void InitLayer()
     {
