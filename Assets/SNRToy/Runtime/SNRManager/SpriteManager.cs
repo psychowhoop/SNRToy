@@ -52,7 +52,8 @@ public class SpriteManager : MonoBehaviour
 
     public Sprite GetSprite(string sptName)
     {
-        Sprite spt = _sptDic[sptName];
+        Sprite spt;
+        _sptDic.TryGetValue(sptName, out spt);
 
         return spt;
     }
